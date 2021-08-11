@@ -3,8 +3,8 @@ import cv2
 
 # Create a Video Reader Object.
 cap = cv2.VideoCapture(0)
-if cap.isOpened() == False:
-    print("Error in opening video stream or file")
+
+
 #Define the codec for the Video
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 #Create Video Writer Object
