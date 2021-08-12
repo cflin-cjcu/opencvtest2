@@ -12,6 +12,7 @@ cv.createTrackbar('smax','res',0,255,abc)
 cv.createTrackbar('vmin','res',0,255,abc)
 cv.createTrackbar('vmax','res',0,255,abc)
 img = cv.imread('./image/test.jpg')
+img = cv.resize(img,(300,200))
 cap = cv.VideoCapture(0)
 while(1):
     # Take each frame
