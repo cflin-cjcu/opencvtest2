@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 def nothing(x):
     pass
 
-img = cv2.imread('./image/test.jpg')
+img = cv2.imread('./image/car.jpg')
 img = cv2.resize(img,(600,400))
 img1 = cv2.GaussianBlur(img,(5,5),0)
 gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
