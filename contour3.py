@@ -10,6 +10,7 @@ gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(gray, 159, 255)
 c, h = cv2.findContours(edges,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
 # for cnt in c:
+#       print(cv2.contourArea(cnt))  
 #     if cv2.contourArea(cnt) > 1000:
 #         # draw = cv2.drawContours(img,cnt,-1,(0,255,0),2)
 #         length = cv2.arcLength(cnt, True)
@@ -20,7 +21,9 @@ c, h = cv2.findContours(edges,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
 # # print(len(c))
 # # print(c[8].shape)
 # # print(h)
-cnt= c[8]
+cnt1=c[8]
+cnt2=c[14]
+cnt= c[26]
 # draw = cv2.drawContours(img,approx,-1,(0,255,0),2)
 # cv2.polylines(img, [approx], True, (0, 255, 0), 3)
 ellipse = cv2.fitEllipse(cnt)
