@@ -27,7 +27,7 @@ for circle in circles[0]:
     # 半径
     r = int(circle[2])
     # 在原图用指定颜色标记出圆的位置
-    img = cv2.circle(img, (x, y), r, (0, 255, 255), 3)
+    img = cv2.circle(img, (x, y), 28, (0, 255, 255), 3)
     img = cv2.circle(img, (x, y), 2, (255, 0, 0), -1)
 # 显示新图像
 cv2.imshow('res', img)
