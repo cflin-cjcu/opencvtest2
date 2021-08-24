@@ -14,7 +14,7 @@ class FaceDetector:
     library.
     """
 
-    def __init__(self, minDetectionCon=0.5):
+    def __init__(self, minDetectionCon=0.5,model_selection=0):
         """
         :param minDetectionCon: Minimum Detection Confidence Threshold
         """
@@ -22,7 +22,7 @@ class FaceDetector:
         self.minDetectionCon = minDetectionCon
         self.mpFaceDetection = mp.solutions.face_detection
         self.mpDraw = mp.solutions.drawing_utils
-        self.faceDetection = self.mpFaceDetection.FaceDetection(self.minDetectionCon)
+        self.faceDetection = self.mpFaceDetection.FaceDetection(self.minDetectionCon,model_selection)
 
     def findFaces(self, img, draw=True):
         """
@@ -49,7 +49,7 @@ class FaceDetector:
                 print(point)
                 px = int(point.x * iw)
                 py = int(point.y * ih)         
-                bboxInfo = {"id": id, "bbox": bbox, "score": detection.score, "center": (cx, cy)}
+                bboxInfo = {"id": id, "bbox": bbox, "score": detection.score, "center": (px, py)}
                 bboxs.append(bboxInfo)
                 if draw:
                     img = cv2.rectangle(img, bbox, (0, 255, 0), 2)
@@ -70,7 +70,7 @@ def main():
         if bboxs:
             # bboxInfo - "id","bbox","score","center"
             center = bboxs[0]["center"]
-            # cv2.circle(img, center, 5, (255, 0, 255), cv2.FILLED)
+            #cv2.circle(img, center, 10, (255, 0, 255), cv2.FILLED)
 
         cv2.imshow("Image", img)
         if cv2.waitKey(1) & 0xff == 27:
