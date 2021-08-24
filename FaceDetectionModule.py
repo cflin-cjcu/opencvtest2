@@ -6,6 +6,7 @@ Website: https://www.computervision.zone/
 
 import cv2
 import mediapipe as mp
+import cvzone.Utils
 
 
 class FaceDetector:
@@ -32,7 +33,7 @@ class FaceDetector:
         :return: Image with or without drawings.
                  Bounding Box list.
         """
-
+        heartimg = cv2.imread('./image/heart.png',cv2.IMREAD_UNCHANGED)
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         self.results = self.faceDetection.process(imgRGB)
         bboxs = []
@@ -53,7 +54,8 @@ class FaceDetector:
                 bboxs.append(bboxInfo)
                 if draw:
                     img = cv2.rectangle(img, bbox, (0, 255, 0), 2)
-                    # cv2.circle(img,(px,py),2,(0,255,255),2,-1)
+                    cv2.circle(img,(px,py),10,(0,255,255),2,-1)
+                    # cvzone.Utils.overlayPNG(img,heartimg,(px, py))
                     cv2.putText(img, f'{int(detection.score[0] * 10000)/100}%',
                                 (bbox[0], bbox[1] - 20), cv2.FONT_HERSHEY_PLAIN,
                                 2, (0, 0, 255), 2)
