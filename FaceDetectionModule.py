@@ -6,7 +6,7 @@ Website: https://www.computervision.zone/
 
 import cv2
 import mediapipe as mp
-import cvzone.Utils
+import cvzone
 
 
 class FaceDetector:
@@ -34,6 +34,7 @@ class FaceDetector:
                  Bounding Box list.
         """
         heartimg = cv2.imread('./image/heart.png',cv2.IMREAD_UNCHANGED)
+        heartimg = cv2.resize(heartimg, (0,0),None,1,1)
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         self.results = self.faceDetection.process(imgRGB)
         bboxs = []
@@ -43,6 +44,7 @@ class FaceDetector:
                 bboxC = detection.location_data.relative_bounding_box
                 point = detection.location_data.relative_keypoints[0]
                 ih, iw, ic = img.shape
+                ah ,aw, ac = heartimg.shape
                 bbox = int(bboxC.xmin * iw), int(bboxC.ymin * ih), \
                        int(bboxC.width * iw), int(bboxC.height * ih)
                 cx, cy = bbox[0] + (bbox[2] // 2), \
@@ -53,12 +55,12 @@ class FaceDetector:
                 bboxInfo = {"id": id, "bbox": bbox, "score": detection.score, "center": (px, py)}
                 bboxs.append(bboxInfo)
                 if draw:
-                    img = cv2.rectangle(img, bbox, (0, 255, 0), 2)
-                    cv2.circle(img,(px,py),10,(0,255,255),2,-1)
-                    # cvzone.Utils.overlayPNG(img,heartimg,(px, py))
-                    cv2.putText(img, f'{int(detection.score[0] * 10000)/100}%',
-                                (bbox[0], bbox[1] - 20), cv2.FONT_HERSHEY_PLAIN,
-                                2, (0, 0, 255), 2)
+                    # img = cv2.rectangle(img, bbox, (0, 255, 0), 2)
+                    img = cvzone.overlayPNG(img,heartimg,[px-15,py-15])
+                    # cv2.circle(img,(px,py),2,(0,255,255),2,-1)
+        #             #cv2.putText(img, f'{int(detection.score[0] * 10000)/100}%',
+        #                         (bbox[0], bbox[1] - 20), cv2.FONT_HERSHEY_PLAIN,
+        #                         2, (0, 0, 255), 2)
         return img, bboxs
 
 
