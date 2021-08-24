@@ -38,7 +38,7 @@ class FaceDetector:
         bboxs = []
         if self.results.detections:
             for id, detection in enumerate(self.results.detections):
-                print(detection)
+                # print(detection)
                 bboxC = detection.location_data.relative_bounding_box
                 point = detection.location_data.relative_keypoints[0]
                 ih, iw, ic = img.shape
@@ -53,7 +53,7 @@ class FaceDetector:
                 bboxs.append(bboxInfo)
                 if draw:
                     img = cv2.rectangle(img, bbox, (0, 255, 0), 2)
-                    cv2.circle(img,(px,py),2,(0,255,255),2,-1)
+                    # cv2.circle(img,(px,py),2,(0,255,255),2,-1)
                     cv2.putText(img, f'{int(detection.score[0] * 10000)/100}%',
                                 (bbox[0], bbox[1] - 20), cv2.FONT_HERSHEY_PLAIN,
                                 2, (0, 0, 255), 2)
@@ -70,7 +70,7 @@ def main():
         if bboxs:
             # bboxInfo - "id","bbox","score","center"
             center = bboxs[0]["center"]
-            #cv2.circle(img, center, 10, (255, 0, 255), cv2.FILLED)
+            # cv2.circle(img, center, 10, (255, 0, 255), cv2.FILLED)
 
         cv2.imshow("Image", img)
         if cv2.waitKey(1) & 0xff == 27:
